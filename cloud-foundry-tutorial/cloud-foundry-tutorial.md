@@ -1,9 +1,12 @@
 Prerequisites:
 
+Get git client
+- https://git-scm.com/downloads
+
 Get an PCF account
 - https://account.run.pivotal.io/sign-up
 
-Get git client
+
 ----
 Download the spring boot app with git:
 
@@ -41,38 +44,35 @@ Connect a Database
 PCF enables administrators to provide a variety of services on the platform that can easily be consumed by applications.
 
 List the available ElephantSQL plans:
+- cf marketplace -s elephantsql
 
-cf marketplace -s elephantsql
 Create a service instance with the free plan:
+- cf create-service elephantsql turtle cf-spring-db
 
-cf create-service elephantsql turtle cf-spring-db
 Bind the newly created service to the app:
+- cf bind-service cf-spring cf-spring-db
 
-cf bind-service cf-spring cf-spring-db
 Once a service is bound to an app, environment variables are stored that allow the app to connect to the service after a push, restage, or restart command.
 
 Restart the app:
+- cf restart cf-spring
 
-cf restart cf-spring
 Verify the new service is bound to the app:
-
-cf services
+- cf services
 -----
 
 Increase the number of app instances from one to two:
+- cf scale cf-spring -i 2
 
-cf scale cf-spring -i 2
 Check the status of the app and verify there are two instances running:
+- cf app cf-spring
 
-cf app cf-spring
 Scaling your app vertically changes the disk space limit or memory limit for each app instance.
-
 Increase the memory limit for each app instance:
+- cf scale cf-spring -m 1G
 
-cf scale cf-spring -m 1G
 Increase the disk limit for each app instance:
-
-cf scale cf-spring -k 512M
+- cf scale cf-spring -k 512M
 ----
 
 
